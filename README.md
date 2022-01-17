@@ -126,9 +126,7 @@ A REST API is provided with seed data for blog posts and comments. The REST API 
 
 ## Delivering to LetsGetChecked
 
-You may zip up your entire application directly and deliver the source code to LetsGetChecked. Ensure that extraneous folders, eg. `/node_modules`, are not included in the zip file. If you've initialized Git in the application directory locally, you may use [git clean](https://git-scm.com/docs/git-clean) to remove uncommitted and ignored files before compressing the project.
-
-Alternatively you can provide a link to a git/bitbucket/etc repository which contains the application code.
+Please provide a link to a git/bitbucket/etc repository which contains the application code.
 
 If you wish to go a step further you may host the final product for demo purposes, eg. with AWS S3. However, this is not required for completion of the code challenge.
 
