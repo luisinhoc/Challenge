@@ -1,0 +1,112 @@
+<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark post">
+  <div class="col-md-6 px-0">
+    <article class="blog-post">
+      <h2 class="blog-post-title">{{ post?.title }}</h2>
+      <p class="blog-post-meta">
+        {{ post?.publish_date }} by <a href="#">{{ post?.author }}</a>
+      </p>
+
+      <h5>
+        {{ post?.description }}
+      </h5>
+      <p [innerHTML]="post?.content | sanitizeHtml"></p>
+    </article>
+  </div>
+</div>
+<div *ngIf="postComments" class="comments">
+  <h3>{{ "comments" | translate }}:</h3>
+  <div *ngFor="let item of postComments">
+    <div *ngIf="item.parent_id === null && item.children.length === 0">
+      <h5>{{ item.user }}</h5>
+      <p>
+        {{ item.content }} <br /><span>{{ item.date }}</span>
+      </p>
+      <p>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="openModal(item)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-card-text"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"
+            ></path>
+            <path
+              d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"
+            ></path>
+          </svg>
+          <span class="visually-hidden">Button</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="editModal(item)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+            ></path>
+          </svg>
+          <span class="visually-hidden">Button</span>
+        </button>
+      </p>
+    </div>
+
+    <ng-container *ngIf="item.children.length > 0">
+      <app-comment [comment]="item"></app-comment>
+    </ng-container>
+  </div>
+</div>
+
+<div>
+  <form [formGroup]="commentForm" (submit)="addComment()">
+    <h3>{{ "new_comment" | translate }}</h3>
+    <div class="form-group">
+      <label for="parent_id">{{ "parent_id" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="parent_id"
+        placeholder="parent id"
+        formControlName="parent_id"
+        readonly
+      />
+    </div>
+    <div class="form-group">
+      <label for="user">{{ "user" | translate }}</label>
+      <input
+        type="text"
+        class="form-control"
+        id="user"
+        placeholder="user"
+        formControlName="user"
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">{{ "comment" | translate }}</label>
+      <textarea
+        class="form-control"
+        id="content"
+        rows="3"
+        formControlName="content"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">
+      {{ "add_comment" | translate }}
+    </button>
+  </form>
+</div>

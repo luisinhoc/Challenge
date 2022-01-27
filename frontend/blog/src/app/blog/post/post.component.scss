@@ -1,0 +1,43 @@
+.card-title {
+  color: black;
+}
+
+label {
+  color: black;
+}
+
+.comments {
+  max-height: 40vh;
+  overflow-y: scroll;
+
+  .card {
+    margin: 0.5rem;
+  }
+
+  .sub-card {
+    margin: 1.5rem;
+  }
+  .sub-sub-card {
+    margin: 2rem;
+  }
+}
+
+.comments::-webkit-scrollbar {
+  display: none;
+}
+
+.comments::-webkit-scrollbar-track {
+  display: none;
+}
+
+.comments::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+.comments::-webkit-scrollbar-thumb:active {
+  display: none;
+}
+
+.comments::-webkit-scrollbar-thumb:hover {
+  display: none;
+}
